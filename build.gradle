@@ -78,17 +78,16 @@ tasks.withType(JavaCompile) {
 tasks.test {
     useJUnitPlatform()
     finalizedBy jacocoTestReport // Ensures the report is generated after tests
+
+    // Detailed test logging configuration
+    testLogging {
+        events "passed", "skipped", "failed"
+        exceptionFormat "full" // Show full stack traces for exceptions
+        showStandardStreams = true // Show standard output and error streams
+    }
 }
 
 tasks.withType(JavaExec) {
-}
-
-jacocoTestReport {
-    reports {
-        xml.required = true
-        csv.required = false
-        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
-    }
 }
 
 java {
